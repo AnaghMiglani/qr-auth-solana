@@ -1,3 +1,5 @@
+import "dotenv/config";
+import QRCode from "qrcode"
 import {
     createNft,
     findMetadataPda,
@@ -88,3 +90,16 @@ await createNft(umi, {
 
 let explorerLink = getExplorerLink("address", mint.publicKey, "devnet");
 console.log(`Token Mint:  ${explorerLink}`);
+
+QRCode.toDataURL(explorerLink, { width: 300, margin: 1 })
+  .then(qrCode => {
+    const qrCodePath = path.join(__dirname, "nft_qr_code.png");
+    return fs.writeFile(qrCodePath, qrCode.replace(/^data:image\/png;base64,/, ""), "base64")
+      .then(() => qrCodePath); // Return the path after writing the file
+  })
+  .then(url => {
+    console.log("QR Code saved at:", url);
+  })
+  .catch(err => {
+    console.error("Error generating QR Code:", err);
+  });
