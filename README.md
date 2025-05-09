@@ -42,6 +42,12 @@ These cases reveal the need for secure, verifiable, and tamper-proof product ide
 - **Verifiable** – Anyone can scan the QR and check authenticity
 - **Decentralized** – No reliance on a single database or authority
 
+## How to run
+```
+npm i
+npm start
+```
+
 ## Example of NFT Created of phone
 
 ![QR Auth Demo](https://github.com/user-attachments/assets/93fbef6c-bf3f-480a-873c-9358eb2b1359)
