@@ -8,8 +8,8 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Anagh Miglani",
+  "license": "MIT",
   "description": "",
   "dependencies": {
     "@metaplex-foundation/mpl-token-metadata": "^3.4.0",
