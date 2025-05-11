@@ -156,7 +156,6 @@ app.post("/create-nft", async (req, res) => {
       );
   }
 
-  // Updated the response to include the link returned by createMetaplexNft and display it above the QR code.
   try {
     const nftLink = await createMetaplexNft(
       serialNumber,
@@ -166,16 +165,48 @@ app.post("/create-nft", async (req, res) => {
     );
     res.send(`
       <title>Mint Successful</title>
-      <h1>Mint Successful!</h1>
-      <p>Your NFT has been minted successfully.</p>
-      <div>
-        <h2>View Your NFT:</h2>
-        <a href="${nftLink}" target="_blank">${nftLink}</a>
-      </div>
-      <div class="qr-code">
-        <h2>QR Code:</h2>
-        <img src="/static/nft_qr_code.png" alt="NFT QR Code">
-      </div>
+      <style>
+        body {
+          font-family: Arial, sans-serif;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          min-height: 100vh;
+          margin: 0;
+          background-color: #f0f0f0;
+        }
+        .container {
+          text-align: center;
+          background: white;
+          padding: 20px;
+          border-radius: 8px;
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+          max-width: 500px;
+          width: 100%;
+        }
+        a {
+          color: #4b0082;
+          text-decoration: none;
+          font-weight: bold;
+        }
+        a:hover {
+          text-decoration: underline;
+        }
+      </style>
+      <body>
+        <div class="container">
+          <h1>Mint Successful!</h1>
+          <p>Your NFT has been minted successfully.</p>
+          <div>
+            <h2>View Your NFT:</h2>
+            <a href="${nftLink}" target="_blank">${nftLink}</a>
+          </div>
+          <div class="qr-code" style="margin-top: 20px;">
+            <h2>QR Code:</h2>
+            <img src="/static/nft_qr_code.png" alt="NFT QR Code">
+          </div>
+        </div>
+      </body>
     `);
   } catch (err) {
     console.error("Error minting NFT:", err);
@@ -256,7 +287,6 @@ app.post("/create-collection", async (req, res) => {
     return res.status(400).send("Product Type is required.");
   }
 
-  // Updated the response to extract and display the collection address with a note to copy it for creating NFTs.
   try {
     const collectionLink = await createCollection(productType);
     const collectionAddress = collectionLink
@@ -264,17 +294,80 @@ app.post("/create-collection", async (req, res) => {
       .split("?cluster=devnet")[0];
     res.send(`
       <title>Collection Created</title>
-      <h1>Collection Created Successfully!</h1>
-      <p>Your collection has been created successfully.</p>
-      <div>
-        <h2>View Your Collection:</h2>
-        <a href="${collectionLink}" target="_blank">${collectionLink}</a>
-      </div>
-      <div style="margin-top: 20px; padding: 10px; border: 1px solid #4b0082; border-radius: 4px; background-color: #f9f9f9;">
-        <h3 style="color: #4b0082;">Collection Address:</h3>
-        <p style="font-weight: bold;">${collectionAddress}</p>
-        <p style="font-size: 14px; color: #555;">Note: Please copy this address for creating NFTs in this collection.</p>
-      </div>
+      <style>
+        body {
+          font-family: Arial, sans-serif;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          min-height: 100vh;
+          margin: 0;
+          background-color: #f0f0f0;
+        }
+        .container {
+          text-align: center;
+          background: white;
+          padding: 20px;
+          border-radius: 8px;
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+          max-width: 500px;
+          width: 100%;
+        }
+        .button-link {
+          display: inline-block;
+          margin-top: 10px;
+          padding: 10px 20px;
+          background-color: #4b0082;
+          color: white;
+          text-decoration: none;
+          border-radius: 4px;
+          font-weight: bold;
+          font-size: 16px;
+          cursor: pointer;
+        }
+        .button-link:hover {
+          background-color: #6a0dad;
+        }
+        .button-link::after {
+          content: " \u2197"; /* Unicode for arrow icon */
+        }
+        .collection-address {
+          margin-top: 20px;
+          padding: 10px;
+          border: 1px solid #4b0082;
+          border-radius: 4px;
+          background-color: #f9f9f9;
+        }
+        .collection-address h3 {
+          color: #4b0082;
+        }
+        .collection-address p {
+          font-size: 14px;
+          color: #555;
+        }
+        .qr-code {
+          margin-top: 20px;
+        }
+      </style>
+      <body>
+        <div class="container">
+          <h1>Collection Created Successfully!</h1>
+          <p>Your collection has been created successfully.</p>
+          <div>
+            <h2>View Your Collection:</h2>
+            <a href="${collectionLink}" target="_blank" class="button-link">Click Here</a>
+          </div>
+          <div class="collection-address">
+            <h3>Collection Address:</h3>
+            <p style="font-weight: bold;">${collectionAddress}</p>
+            <p>Note: Please copy this address for creating NFTs in this collection.</p>
+          </div>
+          <div class="qr-code">
+            <h2>QR Code:</h2>
+            <img src="/static/collection_qr_code.png" alt="Collection QR Code">
+          </div>
+        </div>
+      </body>
     `);
   } catch (err) {
     console.error("Error creating collection:", err);
