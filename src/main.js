@@ -18,6 +18,52 @@ app.use(bodyParser.json());
 console.log("Serving static files from:", __dirname);
 app.use("/static", express.static(__dirname));
 
+// Serve the home page with two buttons
+app.get("/", (req, res) => {
+  res.send(`<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background-color: #f0f0f0;
+      margin: 0;
+    }
+    .container {
+      text-align: center;
+    }
+    button {
+      padding: 10px 20px;
+      margin: 10px;
+      font-size: 16px;
+      background-color: #4b0082;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #6a0dad;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Welcome</h1>
+    <button onclick="location.href='/create-nft'">Create NFT</button>
+    <button onclick="location.href='/create-collection'">Create Collection</button>
+  </div>
+</body>
+</html>`);
+});
+
 // Serve the HTML form
 app.get("/create-nft", (req, res) => {
   res.send(`<!DOCTYPE html>

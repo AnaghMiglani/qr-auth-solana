@@ -14,11 +14,13 @@ import {
 } from "@metaplex-foundation/umi";
 import { createUmi } from "@metaplex-foundation/umi-bundle-defaults";
 import { irysUploader } from "@metaplex-foundation/umi-uploader-irys";
+import { airdropIfRequired, getExplorerLink } from "@solana-developers/helpers";
 import {
-  airdropIfRequired,
-  getExplorerLink,
-} from "@solana-developers/helpers";
-import { clusterApiUrl, Connection, LAMPORTS_PER_SOL, Keypair } from "@solana/web3.js";
+  clusterApiUrl,
+  Connection,
+  LAMPORTS_PER_SOL,
+  Keypair,
+} from "@solana/web3.js";
 import { promises as fs } from "fs";
 
 // Fix for __dirname in ES modules
@@ -32,11 +34,11 @@ export async function createCollection(product_type: string): Promise<void> {
     const umi = createUmi(connection);
 
     // Load keypair from local file system
-    const secretKey =
-      process.env.SECRET_KEY ||
-      "[167,155,162,56,71,255,79,223,18,77,215,192,2,197,59,86,82,117,199,112,239,241,226,136,87,91,59,167,51,220,80,168,162,176,3,226,250,35,207,63,63,172,0,54,246,133,99,78,127,183,18,61,27,167,137,52,130,118,208,193,103,227,232,30]";
+    const secretKey = process.env.SECRET_KEY;
     if (!secretKey) {
-      throw new Error("SECRET_KEY is not defined in the environment variables.");
+      throw new Error(
+        "SECRET_KEY is not defined in the environment variables."
+      );
     }
 
     const user = Keypair.fromSecretKey(Uint8Array.from(JSON.parse(secretKey)));
@@ -53,7 +55,10 @@ export async function createCollection(product_type: string): Promise<void> {
     const umiKeypair = umi.eddsa.createKeypairFromSecretKey(user.secretKey);
 
     // Assign a signer to our umi instance and load the MPL metadata program and Irys uploader plugins
-    umi.use(keypairIdentity(umiKeypair)).use(mplTokenMetadata()).use(irysUploader());
+    umi
+      .use(keypairIdentity(umiKeypair))
+      .use(mplTokenMetadata())
+      .use(irysUploader());
 
     // Generate mint keypair
     const collectionMint = generateSigner(umi);
@@ -81,7 +86,10 @@ export async function createCollection(product_type: string): Promise<void> {
 
     // Generate QR Code
     const qrCodePath = path.join(__dirname, "collection_qr_code.png");
-    const qrCode = await QRCode.toDataURL(explorerLink, { width: 300, margin: 1 });
+    const qrCode = await QRCode.toDataURL(explorerLink, {
+      width: 300,
+      margin: 1,
+    });
     await fs.writeFile(
       qrCodePath,
       qrCode.replace(/^data:image\/png;base64,/, ""),
