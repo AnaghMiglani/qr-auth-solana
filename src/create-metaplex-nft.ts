@@ -3,6 +3,7 @@ import { dirname, join as pathJoin } from "path";
 import "dotenv/config";
 import QRCode from "qrcode";
 import {
+  collect,
   createNft,
   findMetadataPda,
   mplTokenMetadata,
@@ -33,8 +34,9 @@ const __dirname = dirname(__filename);
 export async function createMetaplexNft(
   serialNumber: string,
   productName: string,
+  collectionAddress: string,
   imgurLink: string = "https://i.imgur.com/GB3znw2.png"
-): Promise<void> {
+): Promise<string> {
   try {
     // Create a new connection to Solana's devnet cluster
     const connection = new Connection(clusterApiUrl("devnet"));
@@ -70,9 +72,7 @@ export async function createMetaplexNft(
       .use(irysUploader());
 
     // Substitute in your collection NFT address
-    const collectionNftAddress = UMIPublicKey(
-      "AuU7XLbwyoNsFMnAEfzbLtekL4GjFAydXxfsd5YTBrtC"
-    );
+    const collectionNftAddress = UMIPublicKey(collectionAddress);
 
     // Upload metadata to off-chain storage
     const uri = await umi.uploader.uploadJson({
@@ -114,6 +114,7 @@ export async function createMetaplexNft(
       "base64"
     );
     console.log("QR Code saved at:", qrCodePath);
+    return explorerLink;
   } catch (error) {
     console.error("Error creating NFT:", error);
     throw error;

@@ -27,7 +27,7 @@ import { promises as fs } from "fs";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-export async function createCollection(product_type: string): Promise<void> {
+export async function createCollection(product_type: string): Promise<String> {
   try {
     // Create a new connection to Solana's devnet cluster
     const connection = new Connection(clusterApiUrl("devnet"));
@@ -96,6 +96,7 @@ export async function createCollection(product_type: string): Promise<void> {
       "base64"
     );
     console.log("QR Code saved at:", qrCodePath);
+    return explorerLink;
   } catch (error) {
     console.error("Error creating collection:", error);
     throw error;

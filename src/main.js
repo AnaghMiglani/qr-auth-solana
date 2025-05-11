@@ -1,4 +1,5 @@
-import { createMetaplexNft } from "./create-metaplex-nft.js";
+import { createMetaplexNft } from "../dist/create-metaplex-nft.js";
+import { createCollection } from "../dist/create-metaplex-nft-collection.js";
 import express from "express";
 import bodyParser from "body-parser";
 import path from "path";
@@ -128,7 +129,11 @@ app.get("/create-nft", (req, res) => {
         <input id="productType" name="productType" type="text" required>
       </div>
       <div class="form-group">
-        <label for="imgurLink">Imgur Link (Optional)</label>
+        <label for="collectionAddress">Collection Address</label>
+        <input id="collectionAddress" name="collectionAddress" type="text" required>
+      </div>
+      <div class="form-group">
+        <label for="imgurLink">Image URL (Optional)</label>
         <input id="imgurLink" name="imgurLink" type="url">
       </div>
       <button type="submit">Mint NFT</button>
@@ -141,17 +146,32 @@ app.get("/create-nft", (req, res) => {
 
 // Handle the form submission and create the NFT
 app.post("/create-nft", async (req, res) => {
-  const { serialNumber, productType, imgurLink } = req.body;
+  const { serialNumber, productType, collectionAddress, imgurLink } = req.body;
 
-  if (!serialNumber || !productType) {
-    return res.status(400).send("Serial Number and Product Type are required.");
+  if (!serialNumber || !productType || !collectionAddress) {
+    return res
+      .status(400)
+      .send(
+        "Serial Number, Product Type, and Collection Address are required."
+      );
   }
 
+  // Updated the response to include the link returned by createMetaplexNft and display it above the QR code.
   try {
-    await createMetaplexNft(serialNumber, productType, imgurLink || "https://i.imgur.com/GB3znw2.png");
+    const nftLink = await createMetaplexNft(
+      serialNumber,
+      productType,
+      collectionAddress,
+      imgurLink || "https://i.imgur.com/GB3znw2.png"
+    );
     res.send(`
+      <title>Mint Successful</title>
       <h1>Mint Successful!</h1>
       <p>Your NFT has been minted successfully.</p>
+      <div>
+        <h2>View Your NFT:</h2>
+        <a href="${nftLink}" target="_blank">${nftLink}</a>
+      </div>
       <div class="qr-code">
         <h2>QR Code:</h2>
         <img src="/static/nft_qr_code.png" alt="NFT QR Code">

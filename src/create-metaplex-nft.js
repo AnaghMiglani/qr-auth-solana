@@ -218,9 +218,7 @@ export function createMetaplexNft(serialNumber_1, productName_1) {
               .use(keypairIdentity(umiKeypair))
               .use(mplTokenMetadata())
               .use(irysUploader());
-            collectionNftAddress = UMIPublicKey(
-              "AuU7XLbwyoNsFMnAEfzbLtekL4GjFAydXxfsd5YTBrtC"
-            );
+            collectionNftAddress = UMIPublicKey("asdaasdasdasdasdasdasd");
             return [
               4 /*yield*/,
               umi.uploader.uploadJson({
