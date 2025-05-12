@@ -9,6 +9,8 @@ import { fileURLToPath } from "url";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+const PORT = process.env.PORT || 3000;
+
 const app = express();
 
 // Middleware to parse JSON and URL-encoded data
@@ -563,5 +565,5 @@ app.post("/create-collection", async (req, res) => {
 
 // Start the server
 app.listen(3000, () => {
-  console.log("Server is running on http://localhost:3000/create-nft");
+  console.log(`Server is running on http://localhost:${PORT}`);
 });
