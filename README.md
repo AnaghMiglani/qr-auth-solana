@@ -2,6 +2,10 @@
 
 **QR Auth** is a blockchain-powered service that uses NFTs to register and verify serial numbers of high-value devices. After minting, a unique QR code is generated that can be placed on physical products. Scanning the QR allows public verification of the product’s authenticity and ownership history.
 
+## 🔗 Live Demo
+
+**[Visit Deployed App →](https://qr-auth-solana.onrender.com/)**
+
 ## Features
 
 - Mint serial numbers as NFTs on-chain
@@ -42,16 +46,22 @@ These cases reveal the need for secure, verifiable, and tamper-proof product ide
 - **Verifiable** – Anyone can scan the QR and check authenticity
 - **Decentralized** – No reliance on a single database or authority
 
-## How to run
-```
-npm i
+## How to Run Locally
+
+```bash
+npm install
 npm start
 ```
 
-## Example of NFT Created of phone
+> 📄 Create a `.env` file in the project root with the following:
+
+```
+SECRET_KEY=your_wallet_private_key_here
+```
+
+## Example of NFT Created for Phone
 
 ![QR Auth Demo](https://github.com/user-attachments/assets/93fbef6c-bf3f-480a-873c-9358eb2b1359)
-
 
 ## License
 
