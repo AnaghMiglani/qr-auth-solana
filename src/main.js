@@ -19,6 +19,7 @@ app.use(bodyParser.json());
 console.log("Serving static files from:", __dirname);
 app.use("/static", express.static(__dirname));
 app.use("/dist", express.static(path.join(__dirname, "../dist")));
+app.use("/assets", express.static(path.join(__dirname, "../assets")));
 
 // Serve the home page with two buttons
 app.get("/", (req, res) => {
@@ -32,6 +33,7 @@ app.get("/", (req, res) => {
     body {
       font-family: Arial, sans-serif;
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
       min-height: 100vh;
@@ -54,9 +56,41 @@ app.get("/", (req, res) => {
     button:hover {
       background-color: #6a0dad;
     }
+    .header {
+      background-color: black;
+      color: white;
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      width: 100%;
+      box-sizing: border-box;
+      position: fixed; /* Make the header stick to the top */
+      top: 0; /* Align it to the top of the page */
+      z-index: 1000; /* Ensure it stays above other elements */
+    }
+    .header img {
+      height: 40px;
+      margin-right: 10px;
+      border-radius: 50%;
+    }
+    .header a {
+      color: white;
+      text-decoration: none;
+      font-size: 20px;
+      font-weight: bold;
+    }
+    .header a:hover {
+      text-decoration: underline;
+    }
   </style>
 </head>
 <body>
+  <div class="header">
+    <a href="/">
+      <img src="/assets/QR_Auth_White_Mode.png" alt="Logo">
+      Home
+    </a>
+  </div>
   <div class="container">
     <h1>Welcome</h1>
     <button onclick="location.href='/create-nft'">Create NFT</button>
@@ -78,6 +112,7 @@ app.get("/create-nft", (req, res) => {
     body {
       font-family: Arial, sans-serif;
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
       min-height: 100vh;
@@ -115,9 +150,41 @@ app.get("/create-nft", (req, res) => {
     .success { color: green; margin-bottom: 10px; }
     .qr-code { margin-top: 20px; text-align: center; }
     .qr-code img { width: 200px; height: 200px; }
+    .header {
+      background-color: black;
+      color: white;
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      width: 100%;
+      box-sizing: border-box;
+      position: fixed; /* Make the header stick to the top */
+      top: 0; /* Align it to the top of the page */
+      z-index: 1000; /* Ensure it stays above other elements */
+    }
+    .header img {
+      height: 40px;
+      margin-right: 10px;
+      border-radius: 50%;
+    }
+    .header a {
+      color: white;
+      text-decoration: none;
+      font-size: 20px;
+      font-weight: bold;
+    }
+    .header a:hover {
+      text-decoration: underline;
+    }
   </style>
 </head>
 <body>
+  <div class="header">
+    <a href="/">
+      <img src="/assets/QR_Auth_White_Mode.png" alt="Logo">
+      Home
+    </a>
+  </div>
   <div class="container">
     <h1>Mint Your NFT</h1>
     <form id="nftForm" method="POST" action="/create-nft">
@@ -214,8 +281,40 @@ app.post("/create-nft", async (req, res) => {
         .qr-code {
           margin-top: 20px;
         }
+        .header {
+          background-color: black;
+          color: white;
+          padding: 10px 20px;
+          display: flex;
+          align-items: center;
+          width: 100%;
+          box-sizing: border-box;
+          position: fixed; /* Make the header stick to the top */
+          top: 0; /* Align it to the top of the page */
+          z-index: 1000; /* Ensure it stays above other elements */
+        }
+        .header img {
+          height: 40px;
+          margin-right: 10px;
+          border-radius: 50%;
+        }
+        .header a {
+          color: white;
+          text-decoration: none;
+          font-size: 20px;
+          font-weight: bold;
+        }
+        .header a:hover {
+          text-decoration: underline;
+        }
       </style>
       <body>
+        <div class="header">
+          <a href="/">
+            <img src="/assets/QR_Auth_White_Mode.png" alt="Logo">
+            Home
+          </a>
+        </div>
         <div class="container">
           <h1>Mint Successful!</h1>
           <p>Your NFT has been minted successfully.</p>
@@ -248,6 +347,7 @@ app.get("/create-collection", (req, res) => {
     body {
       font-family: Arial, sans-serif;
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
       min-height: 100vh;
@@ -283,9 +383,41 @@ app.get("/create-collection", (req, res) => {
     button:hover { background: #6a0dad; }
     .error { color: red; margin-bottom: 10px; }
     .success { color: green; margin-bottom: 10px; }
+    .header {
+      background-color: black;
+      color: white;
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      width: 100%;
+      box-sizing: border-box;
+      position: fixed; /* Make the header stick to the top */
+      top: 0; /* Align it to the top of the page */
+      z-index: 1000; /* Ensure it stays above other elements */
+    }
+    .header img {
+      height: 40px;
+      margin-right: 10px;
+      border-radius: 50%;
+    }
+    .header a {
+      color: white;
+      text-decoration: none;
+      font-size: 20px;
+      font-weight: bold;
+    }
+    .header a:hover {
+      text-decoration: underline;
+    }
   </style>
 </head>
 <body>
+  <div class="header">
+    <a href="/">
+      <img src="/assets/QR_Auth_White_Mode.png" alt="Logo">
+      Home
+    </a>
+  </div>
   <div class="container">
     <h1>Create a Collection</h1>
     <form id="collectionForm" method="POST" action="/create-collection">
@@ -370,8 +502,40 @@ app.post("/create-collection", async (req, res) => {
         .qr-code {
           margin-top: 20px;
         }
+        .header {
+          background-color: black;
+          color: white;
+          padding: 10px 20px;
+          display: flex;
+          align-items: center;
+          width: 100%;
+          box-sizing: border-box;
+          position: fixed; /* Make the header stick to the top */
+          top: 0; /* Align it to the top of the page */
+          z-index: 1000; /* Ensure it stays above other elements */
+        }
+        .header img {
+          height: 40px;
+          margin-right: 10px;
+          border-radius: 50%;
+        }
+        .header a {
+          color: white;
+          text-decoration: none;
+          font-size: 20px;
+          font-weight: bold;
+        }
+        .header a:hover {
+          text-decoration: underline;
+        }
       </style>
       <body>
+        <div class="header">
+          <a href="/">
+            <img src="/assets/QR_Auth_White_Mode.png" alt="Logo">
+            Home
+          </a>
+        </div>
         <div class="container">
           <h1>Collection Created Successfully!</h1>
           <p>Your collection has been created successfully.</p>
