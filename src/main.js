@@ -18,6 +18,7 @@ app.use(bodyParser.json());
 // Serve static files (e.g., QR code)
 console.log("Serving static files from:", __dirname);
 app.use("/static", express.static(__dirname));
+app.use("/dist", express.static(path.join(__dirname, "../dist")));
 
 // Serve the home page with two buttons
 app.get("/", (req, res) => {
@@ -192,6 +193,27 @@ app.post("/create-nft", async (req, res) => {
         a:hover {
           text-decoration: underline;
         }
+        .button-link {
+          display: inline-block;
+          margin-top: 10px;
+          padding: 10px 20px;
+          background-color: #4b0082;
+          color: white;
+          text-decoration: none;
+          border-radius: 4px;
+          font-weight: bold;
+          font-size: 16px;
+          cursor: pointer;
+        }
+        .button-link:hover {
+          background-color: #6a0dad;
+        }
+        .button-link::after {
+          content: " \u2197"; /* Unicode for arrow icon */
+        }
+        .qr-code {
+          margin-top: 20px;
+        }
       </style>
       <body>
         <div class="container">
@@ -199,11 +221,11 @@ app.post("/create-nft", async (req, res) => {
           <p>Your NFT has been minted successfully.</p>
           <div>
             <h2>View Your NFT:</h2>
-            <a href="${nftLink}" target="_blank">${nftLink}</a>
+            <a href="${nftLink}" target="_blank" class="button-link">Click Here</a>
           </div>
           <div class="qr-code" style="margin-top: 20px;">
             <h2>QR Code:</h2>
-            <img src="/static/nft_qr_code.png" alt="NFT QR Code">
+            <img src="/dist/nft_qr_code.png" alt="NFT QR Code">
           </div>
         </div>
       </body>
@@ -364,7 +386,7 @@ app.post("/create-collection", async (req, res) => {
           </div>
           <div class="qr-code">
             <h2>QR Code:</h2>
-            <img src="/static/collection_qr_code.png" alt="Collection QR Code">
+            <img src="/dist/collection_qr_code.png" alt="Collection QR Code">
           </div>
         </div>
       </body>
