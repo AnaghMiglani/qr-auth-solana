@@ -7,7 +7,7 @@
 **[Visit Deployed App →](https://qr-auth-solana.onrender.com/)**
 
 ## How to use
-**[Video Link](https://www.loom.com/share/14d74774021c432bac7807c98a0c34a6)
+**[Video Link](https://www.loom.com/share/14d74774021c432bac7807c98a0c34a6)**
 
 ## Features
 
